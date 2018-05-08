@@ -777,7 +777,7 @@ class BoardGame(BaseGame):
                     'player_count': count,
                     'best': int(result['best_rating']),
                     'recommended': int(result['recommended_rating']),
-                    'not_recommended': int(result['not_recommeded_rating']),
+                    'not_recommended': int(result['not_recommended_rating']),
                 }
                 self._player_suggestion.append(PlayerSuggestion(suggestion_data))
 
