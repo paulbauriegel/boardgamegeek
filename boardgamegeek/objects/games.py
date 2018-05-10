@@ -52,7 +52,7 @@ class PlayerSuggestion(DictObject):
         If player count contains a + symbol
         then add one to the player count
         """
-        if '+' in self.player_count:
+        if "+" in self.player_count:
             return int(self.player_count[:-1]) + 1
         else:
             return int(self.player_count)
@@ -771,14 +771,12 @@ class BoardGame(BaseGame):
             self.add_comment(comment)
 
         self._player_suggestion = []
-        if "suggested_players" in data and "results" in data['suggested_players']:
-            for count, result in data['suggested_players']['results'].items():
-                suggestion_data = {
-                    'player_count': count,
-                    'best': int(result['best_rating']),
-                    'recommended': int(result['recommended_rating']),
-                    'not_recommended': int(result['not_recommended_rating']),
-                }
+        if "suggested_players" in data and "results" in data["suggested_players"]:
+            for count, result in data["suggested_players"]["results"].items():
+                suggestion_data = {"player_count": count,
+                                   "best": result["best_rating"],
+                                   "recommended": result["recommended_rating"],
+                                   "not_recommended": result["not_recommended_rating"]}
                 self._player_suggestion.append(PlayerSuggestion(suggestion_data))
 
         super(BoardGame, self).__init__(data)
