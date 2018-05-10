@@ -1,4 +1,5 @@
 import time
+import pytest
 
 from boardgamegeek import BGGError, BGGValueError
 from boardgamegeek.objects.hotitems import HotItems, HotItem

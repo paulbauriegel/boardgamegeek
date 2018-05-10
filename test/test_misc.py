@@ -1,6 +1,7 @@
 import os
 import tempfile
 import time
+import pytest
 
 from _common import *
 from boardgamegeek import BGGValueError, CacheBackendNone, CacheBackendSqlite

@@ -1,6 +1,7 @@
 import pickle
 import threading
 import time
+import pytest
 
 import boardgamegeek.utils as bggutil
 from _common import *
