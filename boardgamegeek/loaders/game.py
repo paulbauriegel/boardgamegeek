@@ -135,7 +135,7 @@ def create_game_from_xml(xml_root, game_id, html_parser):
                             .attrib.get("numvotes"),
                             'recommended_rating': result
                             .find("result[@value='Recommended']").attrib.get("numvotes"),
-                            'not_recommeded_rating': result
+                            'not_recommended_rating': result
                             .find("result[@value='Not Recommended']")
                             .attrib.get("numvotes"),
                         }
@@ -145,7 +145,7 @@ def create_game_from_xml(xml_root, game_id, html_parser):
                         data["suggested_players"]['results'][player_count] = {
                             'best_rating': '1',
                             'recommended_rating': '0',
-                            'not_recommeded_rating': '0',
+                            'not_recommended_rating': '0',
                         }
 
     return BoardGame(data)
