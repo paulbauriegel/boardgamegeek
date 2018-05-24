@@ -84,7 +84,7 @@
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">fix_url</span><span class="p">,</span> <span class="n">DictObject</span><span class="p">,</span> <span class="n">fix_unsigned_negative</span>
 
 
-<span class="k">class</span> <span class="nc">BoardGameRank</span><span class="p">(</span><span class="n">Thing</span><span class="p">):</span>
+<div class="viewcode-block" id="BoardGameRank"><a class="viewcode-back" href="../../../modules.html#boardgamegeek.objects.games.BoardGameRank">[docs]</a><span class="k">class</span> <span class="nc">BoardGameRank</span><span class="p">(</span><span class="n">Thing</span><span class="p">):</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
@@ -99,10 +99,10 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rating_bayes_average</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bayesaverage&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bayesaverage&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">PlayerSuggestion</span><span class="p">(</span><span class="n">DictObject</span><span class="p">):</span>
+<div class="viewcode-block" id="PlayerSuggestion"><a class="viewcode-back" href="../../../modules.html#boardgamegeek.objects.games.PlayerSuggestion">[docs]</a><span class="k">class</span> <span class="nc">PlayerSuggestion</span><span class="p">(</span><span class="n">DictObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Player Suggestion</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -119,10 +119,10 @@
         <span class="k">if</span> <span class="s2">&quot;+&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_count</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_count</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_count</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_count</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">BoardGameStats</span><span class="p">(</span><span class="n">DictObject</span><span class="p">):</span>
+<div class="viewcode-block" id="BoardGameStats"><a class="viewcode-back" href="../../../modules.html#boardgamegeek.objects.games.BoardGameStats">[docs]</a><span class="k">class</span> <span class="nc">BoardGameStats</span><span class="p">(</span><span class="n">DictObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Statistics about a board game</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -253,10 +253,10 @@
 <span class="sd">        :rtype: float</span>
 <span class="sd">        :return: ``None`` if n/a</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;averageweight&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;averageweight&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">BoardGameComment</span><span class="p">(</span><span class="n">DictObject</span><span class="p">):</span>
+<div class="viewcode-block" id="BoardGameComment"><a class="viewcode-back" href="../../../modules.html#boardgamegeek.objects.games.BoardGameComment">[docs]</a><span class="k">class</span> <span class="nc">BoardGameComment</span><span class="p">(</span><span class="n">DictObject</span><span class="p">):</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">commenter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -271,10 +271,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">u&quot;comment by </span><span class="si">{}</span><span class="s2"> (rating: </span><span class="si">{}</span><span class="s2">): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commenter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">comment</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">u&quot;comment by </span><span class="si">{}</span><span class="s2"> (rating: </span><span class="si">{}</span><span class="s2">): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commenter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">comment</span><span class="p">))</span></div>
 
 
-<span class="k">class</span> <span class="nc">BoardGameVideo</span><span class="p">(</span><span class="n">Thing</span><span class="p">):</span>
+<div class="viewcode-block" id="BoardGameVideo"><a class="viewcode-back" href="../../../modules.html#boardgamegeek.objects.games.BoardGameVideo">[docs]</a><span class="k">class</span> <span class="nc">BoardGameVideo</span><span class="p">(</span><span class="n">Thing</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Object containing information about a board game video</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -355,10 +355,10 @@
 <span class="sd">        :rtype: datetime.datetime</span>
 <span class="sd">        :return: ``None`` if n/a</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;post_date&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;post_date&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">BoardGameVersion</span><span class="p">(</span><span class="n">Thing</span><span class="p">):</span>
+<div class="viewcode-block" id="BoardGameVersion"><a class="viewcode-back" href="../../../modules.html#boardgamegeek.objects.games.BoardGameVersion">[docs]</a><span class="k">class</span> <span class="nc">BoardGameVersion</span><span class="p">(</span><span class="n">Thing</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Object containing information about a board game version</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -476,7 +476,7 @@
 <span class="sd">        :rtype: integer</span>
 <span class="sd">        :return: ``None`` if n/a</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;yearpublished&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;yearpublished&quot;</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">BaseGame</span><span class="p">(</span><span class="n">Thing</span><span class="p">):</span>
