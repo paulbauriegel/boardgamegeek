@@ -874,7 +874,7 @@ class BGGClient(BGGCommon):
                                     game_id=game_id,
                                     html_parser=html_parser)
 
-        if not comments:
+        if not (comments or rating_comments):
             return game
 
         added_items, total = add_game_comments_from_xml(game, xml_root)
@@ -888,17 +888,23 @@ class BGGClient(BGGCommon):
         while added_items and len(game.comments) < total:
             page += 1
 
+            params['page'] = page
             xml_root = request_and_parse_xml(self.requests_session,
                                              self._thing_api_url,
-                                             params={"id": game_id,
-                                                     "pagesize": 100,
-                                                     "comments": 1,
-                                                     "page": page})
+                                             params=params,
+                                             timeout=self._timeout,
+                                             retries=self._retries,
+                                             retry_delay=self._retry_delay)
 
-            added_items = add_game_comments_from_xml(game, xml_root)
+            xml_root = xml_root.find("item")
+            if xml_root is None:
+                msg = "invalid data for game id: {}{}".format(game_id, "" if name is None else " ({})".format(name))
+                raise BGGApiError(msg)
+
+            added_items, total = add_game_comments_from_xml(game, xml_root)
 
             try:
-                call_progress_cb(progress, len(game), game.comments)
+                call_progress_cb(progress, len(game.comments), total)
             except:
                 break
 

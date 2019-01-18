@@ -154,7 +154,6 @@ def add_game_comments_from_xml(game, xml_root):
     added_items = False
     total_comments = 0
 
-    # TODO: this is not working (API PROBLEM??)
     comments = xml_root.find("comments")
     if comments is not None:
         total_comments = int(comments.attrib["totalitems"])
