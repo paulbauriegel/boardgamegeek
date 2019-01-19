@@ -102,6 +102,7 @@ Contributions to this fork:
 * Philip Kendall (github:pak21)
 * David Feng (github:selwyth)
 * Emil Stenström (github:EmilStenstrom)
+* Bill Sacks (github:billsacks)
 
 Indices and tables
 ==================
