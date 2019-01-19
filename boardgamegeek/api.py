@@ -755,8 +755,7 @@ class BGGClient(BGGCommon):
         """
         return self._get_game_id(name, game_type=BGGRestrictSearchResultsTo.BOARD_GAME, choose=choose)
 
-
-    def game_list(self, game_id_list=[], versions=False,
+    def game_list(self, game_id_list, versions=False,
                   videos=False, historical=False, marketplace=False):
         """
         Get list of games by from a list of ids.
@@ -780,7 +779,7 @@ class BGGClient(BGGCommon):
         if not game_id_list:
             raise BGGError("List of Game Ids must be specified")
 
-        log.debug("retrieving games {}".format(game_id_list,))
+        log.debug("retrieving games {}".format(game_id_list))
 
         params = {"id": ",".join([str(game_id) for game_id in game_id_list]),
                   "versions": int(versions),
@@ -809,7 +808,6 @@ class BGGClient(BGGCommon):
             game_list.append(game)
 
         return game_list
-
 
     def game(self, name=None, game_id=None, choose=BGGChoose.FIRST, versions=False, videos=False, historical=False,
              marketplace=False, comments=False, rating_comments=False, progress=None):
