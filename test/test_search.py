@@ -1,4 +1,5 @@
 import time
+import pytest
 
 from _common import *
 from boardgamegeek import BGGValueError, BGGRestrictSearchResultsTo

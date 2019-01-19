@@ -119,34 +119,32 @@ def create_game_from_xml(xml_root, game_id, html_parser):
                                 "value": rank_value})
 
         data["stats"] = sd
-
-        polls = xml_root.findall("poll")
         data["suggested_players"] = {}
-        for poll in polls:
-            if poll.attrib.get("name") == "suggested_numplayers":
-                results = poll.findall('results')
-                data["suggested_players"]['total_votes'] = poll.attrib.get('totalvotes')
-                data["suggested_players"]['results'] = {}
-                for result in results:
-                    player_count = result.attrib.get("numplayers")
-                    if result.find("result[@value='Best']") is not None:
-                        data["suggested_players"]['results'][player_count] = {
-                            'best_rating': result.find("result[@value='Best']")
-                            .attrib.get("numvotes"),
-                            'recommended_rating': result
-                            .find("result[@value='Recommended']").attrib.get("numvotes"),
-                            'not_recommeded_rating': result
-                            .find("result[@value='Not Recommended']")
-                            .attrib.get("numvotes"),
-                        }
-                    else:
-                        ''' if there is only one poll player count and no votes recorded
-                            by default it is the the best player count '''
-                        data["suggested_players"]['results'][player_count] = {
-                            'best_rating': '1',
-                            'recommended_rating': '0',
-                            'not_recommeded_rating': '0',
-                        }
+
+        suggested_players_poll = xml_root.find("poll[@name='suggested_numplayers']")
+        if suggested_players_poll is not None:
+            dsp = data["suggested_players"]
+            dsp.update({"total_votes": int(suggested_players_poll.attrib.get("totalvotes", 0)),
+                        "results": {}})
+
+            for results in suggested_players_poll.findall("results"):
+
+                player_count = results.attrib.get("numplayers")
+                dspr = {"best_rating": 0,
+                        "recommended_rating": 0,
+                        "not_recommended_rating": 0}
+
+                for result in results.findall("result"):
+                    kind = result.attrib.get("value")
+                    votes = int(result.attrib.get("numvotes", 0))
+                    if kind == "Best":
+                        dspr["best_rating"] = votes
+                    elif kind == "Recommended":
+                        dspr["recommended_rating"] = votes
+                    elif kind == "Not Recommended":
+                        dspr["not_recommended_rating"] = votes
+
+                dsp["results"][player_count] = dspr
 
     return BoardGame(data)
 
@@ -156,7 +154,6 @@ def add_game_comments_from_xml(game, xml_root):
     added_items = False
     total_comments = 0
 
-    # TODO: this is not working (API PROBLEM??)
     comments = xml_root.find("comments")
     if comments is not None:
         total_comments = int(comments.attrib["totalitems"])

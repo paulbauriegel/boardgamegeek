@@ -2,6 +2,7 @@
 import datetime
 import mock
 import requests
+import pytest
 import sys
 import time
 
@@ -76,7 +77,6 @@ def check_game(game):
 
     assert type(game.boardgame_rank) == int
 
-
     # check for videos
     assert type(game.videos) == list
     assert len(game.videos) > 0
@@ -116,16 +116,28 @@ def check_game(game):
 
     # check player suggestions were retrieved
     assert type(game.player_suggestions) == list
-    for suggestion in game.player_suggestions:
-        assert type(suggestion) == PlayerSuggestion
-        assert type(suggestion.player_count) == str
-        assert type(suggestion.best) == int
-        assert type(suggestion.not_recommended) == int
-        assert type(suggestion.recommended) == int
+    suggestions_not_found = set(range(game.min_players, game.max_players + 1))
 
+    for sg in game.player_suggestions:
+        assert type(sg) == PlayerSuggestion
+        assert type(sg.player_count) == str
+        assert type(sg.numeric_player_count) == int
+        assert type(sg.best) == int
+        assert type(sg.not_recommended) == int
+        assert type(sg.recommended) == int
+        try:
+            # the test game has a number of players between 1 and 5, but also a suggestion for 5+ players (huh?)
+            # That's why the try...except here.
+            suggestions_not_found.remove(sg.numeric_player_count)
+        except:
+            pass
+
+    # should have found suggestions for all number of players
+    assert not len(suggestions_not_found)
 
     # make sure no exception gets thrown
     repr(game)
+
 
 def test_get_known_game_info(bgg, mocker, null_logger):
     mock_get = mocker.patch("requests.sessions.Session.get")
@@ -209,6 +221,7 @@ def test_get_games_by_name(bgg, mocker, null_logger):
         g._format(null_logger)
 
     assert len(games) > 1
+
 
 def test_get_accessory(bgg, mocker):
     mock_get = mocker.patch("requests.sessions.Session.get")

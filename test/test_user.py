@@ -1,5 +1,6 @@
 import datetime
 import time
+import pytest
 
 from boardgamegeek import BGGValueError, BGGItemNotFoundError
 
