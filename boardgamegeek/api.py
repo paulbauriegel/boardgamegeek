@@ -194,7 +194,7 @@ class BGGCommon(object):
         xml_root = request_and_parse_xml(self.requests_session,
                                          self._guild_api_url,
                                          params={"id": guild_id,
-                                                 "members": 1 if members else 0},
+                                                 "members": int(members)},
                                          timeout=self._timeout,
                                          retries=self._retries,
                                          retry_delay=self._retry_delay)
@@ -266,10 +266,10 @@ class BGGCommon(object):
             raise BGGValueError("invalid domain")
 
         params = {"name": name,
-                  "buddies": 1 if buddies else 0,
-                  "guilds": 1 if guilds else 0,
-                  "hot": 1 if hot else 0,
-                  "top": 1 if top else 0,
+                  "buddies": int(buddies),
+                  "guilds": int(guilds),
+                  "hot": int(hot),
+                  "top": int(top),
                   "domain": domain}
 
         root = request_and_parse_xml(self.requests_session,
@@ -582,10 +582,10 @@ class BGGCommon(object):
         for param in ["versions", "own", "rated", "played", "trade", "want", "wishlist", "preordered"]:
             p = locals()[param]
             if p is not None:
-                params[param] = 1 if p else 0
+                params[param] = int(p)
 
         if commented is not None:
-            params["comment"] = 1 if commented else 0
+            params["comment"] = int(commented)
 
         if wishlist_prio is not None:
             if 1 <= wishlist_prio <= 5:
@@ -594,19 +594,19 @@ class BGGCommon(object):
                 raise BGGValueError("invalid 'wishlist_prio'")
 
         if want_to_play is not None:
-            params["wanttoplay"] = 1 if want_to_play else 0
+            params["wanttoplay"] = int(want_to_play)
 
         if want_to_buy is not None:
-            params["wanttobuy"] = 1 if want_to_buy else 0
+            params["wanttobuy"] = int(want_to_buy)
 
         if prev_owned is not None:
-            params["prevowned"] = 1 if prev_owned else 0
+            params["prevowned"] = int(prev_owned)
 
         if has_parts is not None:
-            params["hasparts"] = 1 if has_parts else 0
+            params["hasparts"] = int(has_parts)
 
         if want_parts is not None:
-            params["wantparts"] = 1 if want_parts else 0
+            params["wantparts"] = int(want_parts)
 
         if min_rating is not None:
             if 1.0 <= min_rating <= 10.0:
@@ -782,11 +782,11 @@ class BGGClient(BGGCommon):
 
         log.debug("retrieving games {}".format(game_id_list,))
 
-        params = {"id": ','.join([str(game_id) for game_id in game_id_list]),
-                  "versions": 1 if versions else 0,
-                  "videos": 1 if videos else 0,
-                  "historical": 1 if historical else 0,
-                  "marketplace": 1 if marketplace else 0,
+        params = {"id": ",".join([str(game_id) for game_id in game_id_list]),
+                  "versions": int(versions),
+                  "videos": int(videos),
+                  "historical": int(historical),
+                  "marketplace": int(marketplace),
                   "stats": 1}
 
         xml_root = request_and_parse_xml(self.requests_session,
@@ -848,12 +848,12 @@ class BGGClient(BGGCommon):
         log.debug("retrieving game id {}{}".format(game_id, " ({})".format(name) if name is not None else ""))
 
         params = {"id": game_id,
-                  "versions": 1 if versions else 0,
-                  "videos": 1 if videos else 0,
-                  "historical": 1 if historical else 0,
-                  "marketplace": 1 if marketplace else 0,
-                  "comments": 1 if comments else 0,
-                  "ratingcomments": 1 if rating_comments else 0,
+                  "versions": int(versions),
+                  "videos": int(videos),
+                  "historical": int(historical),
+                  "marketplace": int(marketplace),
+                  "comments": int(comments),
+                  "ratingcomments": int(rating_comments),
                   "pagesize": 100,
                   "page": 1,
                   "stats": 1}
