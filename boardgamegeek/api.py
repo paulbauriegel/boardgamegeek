@@ -891,7 +891,11 @@ class BGGClient(BGGCommon):
             params['page'] = page
             xml_root = request_and_parse_xml(self.requests_session,
                                              self._thing_api_url,
-                                             params=params,
+                                             params={"id": game_id,
+                                                     "pagesize": 100,
+                                                     "comments": int(comments),
+                                                     "ratingcomments": int(rating_comments),
+                                                     "page": page},
                                              timeout=self._timeout,
                                              retries=self._retries,
                                              retry_delay=self._retry_delay)
