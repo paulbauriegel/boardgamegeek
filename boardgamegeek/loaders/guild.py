@@ -4,13 +4,6 @@ from ..objects.guild import Guild
 from ..exceptions import BGGItemNotFoundError
 from ..utils import xml_subelement_text, html_unescape_function
 
-unescape_fn_factory = lambda hp: hp.unescape
-try:
-    import html
-    if hasattr(html, 'unescape'):
-        unescape_fn_factory = lambda hp: html.unescape
-except ImportError:
-    pass # Expected in Python 2
 
 log = logging.getLogger("boardgamegeek.loaders.guild")
 

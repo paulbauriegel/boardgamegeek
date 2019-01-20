@@ -20,6 +20,7 @@ import time
 import threading
 from requests.adapters import HTTPAdapter
 
+
 try:
     import urllib.parse as urlparse
 except:
@@ -423,7 +424,7 @@ def html_unescape_function(html_parser):
     :param html_parser: an HTML parser (HTMLParser in Python 2, html.parser in Python 3)
     :return: a function which will unescape HTML
     """
-    if 'html' in sys.modules and hasattr(html, 'unescape'):
+    if "html" in sys.modules and hasattr(html, "unescape"):
         return html.unescape # The module level function
     else:
         return html_parser.unescape # The object level function
