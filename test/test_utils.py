@@ -7,6 +7,10 @@ import boardgamegeek.utils as bggutil
 from _common import *
 from boardgamegeek.objects.things import Thing
 
+if sys.version_info >= (3,):
+    import html.parser as hp
+else:
+    import HTMLParser as hp
 
 def test_get_xml_subelement_attr(xml):
 
@@ -169,3 +173,12 @@ def test_rate_limiting_for_requests():
         bgg.game(game_id=g)
 
     assert 0 < time.time() - end_time < 2
+
+def test_html_unescape_function():
+    escaped = "&lt;tag&gt;"
+    html_parser = hp.HTMLParser()
+
+    unescape_fn = bggutil.html_unescape_function(html_parser)
+    unescaped = unescape_fn(escaped)
+
+    assert unescaped == "<tag>"
