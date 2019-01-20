@@ -1,3 +1,4 @@
+import html
 import logging
 
 from ..objects.guild import Guild
@@ -20,7 +21,7 @@ def create_guild_from_xml(xml_root, html_parser):
             "category": xml_subelement_text(xml_root, "category"),
             "website": xml_subelement_text(xml_root, "website"),
             "manager": xml_subelement_text(xml_root, "manager"),
-            "description": xml_subelement_text(xml_root, "description", convert=html_parser.unescape, quiet=True)}
+            "description": xml_subelement_text(xml_root, "description", convert=html.unescape, quiet=True)}
 
     # Grab location info
     location = xml_root.find("location")
