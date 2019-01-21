@@ -7,11 +7,6 @@ import boardgamegeek.utils as bggutil
 from _common import *
 from boardgamegeek.objects.things import Thing
 
-if sys.version_info >= (3,):
-    import html.parser as hp
-else:
-    import HTMLParser as hp
-
 def test_get_xml_subelement_attr(xml):
 
     node = bggutil.xml_subelement_attr(None, "hello")
