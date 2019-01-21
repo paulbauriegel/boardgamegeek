@@ -176,9 +176,7 @@ def test_rate_limiting_for_requests():
 
 def test_html_unescape_function():
     escaped = "&lt;tag&gt;"
-    html_parser = hp.HTMLParser()
 
-    unescape_fn = bggutil.html_unescape_function(html_parser)
-    unescaped = unescape_fn(escaped)
+    unescaped = bggutil.html_unescape(escaped)
 
     assert unescaped == "<tag>"

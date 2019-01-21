@@ -26,10 +26,16 @@ try:
 except:
     import urlparse
 
+# Compatibility shim which gives us a working "unescape HTML" function on all Python versions
 try:
     import html
-except ImportError:
-    pass # Expected to fail on Python 2
+    html_unescape = html.unescape # Python 3.4+
+except AttributeError: # Python 3.0 - 3.3
+    import html.parser
+    html_unescape = html.parser.HTMLParser().unescape
+except ImportError: # Python 2
+    import HTMLParser
+    html_unescape = HTMLParser.HTMLParser().unescape
 
 from .exceptions import BGGApiError, BGGApiRetryError, BGGError, BGGApiTimeoutError
 
@@ -414,17 +420,3 @@ def get_board_game_version_from_element(xml_elem):
         data[item] = xml_subelement_attr(xml_elem, item, convert=float, quiet=True, default=0.0)
 
     return data
-
-def html_unescape_function(html_parser):
-    """
-    Given an HTML parser object, return a function which can be used to unescape HTML.
-
-    A compatibility shim to deal with the unescape function moving around.
-
-    :param html_parser: an HTML parser (HTMLParser in Python 2, html.parser in Python 3)
-    :return: a function which will unescape HTML
-    """
-    if "html" in sys.modules and hasattr(html, "unescape"):
-        return html.unescape # The module level function
-    else:
-        return html_parser.unescape # The object level function
