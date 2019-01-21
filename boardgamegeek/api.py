@@ -19,14 +19,6 @@ import logging
 import sys
 import warnings
 
-# This is required for decoding HTML entities from the description text
-# of games
-if sys.version_info >= (3,):
-    import html.parser as hp
-else:
-    import HTMLParser as hp
-
-
 from .objects.user import User
 from .objects.search import SearchResult
 
@@ -43,7 +35,6 @@ from .loaders import create_game_from_xml, add_game_comments_from_xml
 
 
 log = logging.getLogger("boardgamegeek.api")
-html_parser = hp.HTMLParser()
 
 HOT_ITEM_CHOICES = ["boardgame", "rpg", "videogame", "boardgameperson", "rpgperson", "boardgamecompany",
                     "rpgcompany", "videogamecompany"]
@@ -199,7 +190,7 @@ class BGGCommon(object):
                                          retries=self._retries,
                                          retry_delay=self._retry_delay)
 
-        guild = create_guild_from_xml(xml_root, html_parser)
+        guild = create_guild_from_xml(xml_root)
 
         if not members:
             return guild
@@ -803,8 +794,7 @@ class BGGClient(BGGCommon):
         game_list = []
         for i, game_root in enumerate(xml_root):
             game = create_game_from_xml(game_root,
-                                        game_id=game_id_list[i],
-                                        html_parser=html_parser)
+                                        game_id=game_id_list[i])
             game_list.append(game)
 
         return game_list
@@ -869,8 +859,7 @@ class BGGClient(BGGCommon):
             raise BGGApiError(msg)
 
         game = create_game_from_xml(xml_root,
-                                    game_id=game_id,
-                                    html_parser=html_parser)
+                                    game_id=game_id)
 
         if not (comments or rating_comments):
             return game

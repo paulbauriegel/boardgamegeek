@@ -7,7 +7,7 @@ from ..utils import xml_subelement_attr_list, xml_subelement_text, xml_subelemen
 log = logging.getLogger("boardgamegeek.loaders.game")
 
 
-def create_game_from_xml(xml_root, game_id, html_parser):
+def create_game_from_xml(xml_root, game_id):
 
     game_type = xml_root.attrib["type"]
     if game_type not in ["boardgame", "boardgameexpansion", "boardgameaccessory"]:

@@ -8,7 +8,7 @@ from ..utils import xml_subelement_text, html_unescape
 log = logging.getLogger("boardgamegeek.loaders.guild")
 
 
-def create_guild_from_xml(xml_root, html_parser):
+def create_guild_from_xml(xml_root):
 
     if "name" not in xml_root.attrib:
         raise BGGItemNotFoundError("name not found")
