@@ -2,13 +2,12 @@ import logging
 
 from ..objects.games import BoardGame
 from ..exceptions import BGGApiError
-from ..utils import xml_subelement_attr_list, xml_subelement_text, xml_subelement_attr, get_board_game_version_from_element
-
+from ..utils import xml_subelement_attr_list, xml_subelement_text, xml_subelement_attr, get_board_game_version_from_element, html_unescape
 
 log = logging.getLogger("boardgamegeek.loaders.game")
 
 
-def create_game_from_xml(xml_root, game_id, html_parser):
+def create_game_from_xml(xml_root, game_id):
 
     game_type = xml_root.attrib["type"]
     if game_type not in ["boardgame", "boardgameexpansion", "boardgameaccessory"]:
@@ -29,7 +28,7 @@ def create_game_from_xml(xml_root, game_id, html_parser):
             "designers": xml_subelement_attr_list(xml_root, "link[@type='boardgamedesigner']"),
             "artists": xml_subelement_attr_list(xml_root, "link[@type='boardgameartist']"),
             "publishers": xml_subelement_attr_list(xml_root, "link[@type='boardgamepublisher']"),
-            "description": xml_subelement_text(xml_root, "description", convert=html_parser.unescape, quiet=True)}
+            "description": xml_subelement_text(xml_root, "description", convert=html_unescape, quiet=True)}
 
     expands = []        # list of items this game expands
     expansions = []     # list of expansions this game has
