@@ -11,7 +11,7 @@ log = logging.getLogger("boardgamegeek.loaders.game")
 def create_game_from_xml(xml_root, game_id, html_parser):
 
     game_type = xml_root.attrib["type"]
-    if game_type not in ["boardgame", "boardgameexpansion", "boardgameaccessory"]:
+    if game_type not in ["boardgame", "boardgameexpansion", "boardgameaccessory", "rpgitem", "rpgissue"]:
         log.debug("unsupported type {} for item id {}".format(game_type, game_id))
         raise BGGApiError("item has an unsupported type")
 

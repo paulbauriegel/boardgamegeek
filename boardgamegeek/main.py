@@ -3,7 +3,8 @@ import sys
 import argparse
 import logging
 
-from boardgamegeek.api import BGGClient, HOT_ITEM_CHOICES
+from boardgamegeek.api import RPGClient, HOT_ITEM_CHOICES
+from boardgamegeek import BGGRestrictSearchResultsTo
 
 log = logging.getLogger("boardgamegeek")
 log_fmt = "[%(levelname)s] %(message)s"
@@ -53,6 +54,7 @@ def main():
     p.add_argument("-P", "--plays-by-game", help="Query a game's plays")
     p.add_argument("-H", "--hot-items", help="List all hot items by type", choices=HOT_ITEM_CHOICES)
     p.add_argument("-S", "--search", help="search and return results")
+    p.add_argument("--exact", help="return exact search results", action="store_true")
     p.add_argument("--debug", action="store_true")
     p.add_argument("--retries", help="number of retries to perform in case of timeout or API HTTP 202 code",
                    type=int,
@@ -84,7 +86,7 @@ def main():
                 args.plays, args.plays_by_game, args.hot_items, args.search]):
         p.error("no action specified!")
 
-    bgg = BGGClient(timeout=args.timeout, retries=args.retries)
+    bgg = RPGClient(timeout=args.timeout, retries=args.retries)
 
     if args.user:
         user = bgg.user(args.user, progress=progress_cb)
@@ -137,7 +139,7 @@ def main():
             log.info("")
 
     if args.search:
-        results = bgg.search(args.search)
+        results = bgg.search(args.search, search_type=[BGGRestrictSearchResultsTo.RPG], exact=args.exact)
         for r in results:
             r._format(log)
             log.info("")
