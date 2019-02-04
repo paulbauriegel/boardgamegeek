@@ -499,8 +499,8 @@ class BGGCommon(object):
 
         return hot_items
 
-    def collection(self, user_name, subtype=BGGRestrictCollectionTo.BOARD_GAME, exclude_subtype=None, ids=None, versions=False,
-                   own=None, rated=None, played=None, commented=None, trade=None, want=None, wishlist=None,
+    def collection(self, user_name, subtype=BGGRestrictCollectionTo.BOARD_GAME, exclude_subtype=None, ids=None, versions=None,
+                   version=None, own=None, rated=None, played=None, commented=None, trade=None, want=None, wishlist=None,
                    wishlist_prio=None, preordered=None, want_to_play=None, want_to_buy=None, prev_owned=None,
                    has_parts=None, want_parts=None, min_rating=None, rating=None, min_bgg_rating=None, bgg_rating=None,
                    min_plays=None, max_plays=None, collection_id=None, modified_since=None):
@@ -511,7 +511,8 @@ class BGGCommon(object):
         :param str subtype: what type of items to return. One of the constants in :py:class:`boardgamegeek.api.BGGRestrictCollectionTo`
         :param str exclude_subtype: if not ``None`` (default), exclude the specified subtype. Else, one of the constants in :py:class:`boardgamegeek.api.BGGRestrictCollectionTo`
         :param list ids: if not ``None`` (default), limit the results to the specified ids.
-        :param bool versions: include item version information
+        :param bool versions: *DEPRECATED* use `version` instead
+        :param bool version: include item version information
         :param bool own: include (if ``True``) or exclude (if ``False``) owned items
         :param bool rated: include (if ``True``) or exclude (if ``False``) rated items
         :param bool played: include (if ``True``) or exclude (if ``False``) played items
@@ -570,10 +571,11 @@ class BGGCommon(object):
         if ids is not None:
             params["id"] = ",".join(["{}".format(id_) for id_ in ids])
 
-        for param in ["versions", "own", "rated", "played", "trade", "want", "wishlist", "preordered"]:
+        for param in ["version", "versions", "own", "rated", "played", "trade", "want", "wishlist", "preordered"]:
             p = locals()[param]
             if p is not None:
-                if param=='versions': param='version'
+                if param == "versions":
+                    param = "version"
                 params[param] = int(p)
 
         if commented is not None:
