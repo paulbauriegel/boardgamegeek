@@ -26,6 +26,17 @@ try:
 except:
     import urlparse
 
+# Compatibility shim which gives us a working "unescape HTML" function on all Python versions
+try:
+    import html
+    html_unescape = html.unescape # Python 3.4+
+except AttributeError: # Python 3.0 - 3.3
+    import html.parser
+    html_unescape = html.parser.HTMLParser().unescape
+except ImportError: # Python 2
+    import HTMLParser
+    html_unescape = HTMLParser.HTMLParser().unescape
+
 from .exceptions import BGGApiError, BGGApiRetryError, BGGError, BGGApiTimeoutError
 
 log = logging.getLogger("boardgamegeek.utils")

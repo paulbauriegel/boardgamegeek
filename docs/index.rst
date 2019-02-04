@@ -103,6 +103,7 @@ Contributions to this fork:
 * David Feng (github:selwyth)
 * Emil Stenström (github:EmilStenstrom)
 * Bill Sacks (github:billsacks)
+* Arnauld Van Muysewinkel (github:arnauldvm)
 
 Indices and tables
 ==================

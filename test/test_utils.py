@@ -7,7 +7,6 @@ import boardgamegeek.utils as bggutil
 from _common import *
 from boardgamegeek.objects.things import Thing
 
-
 def test_get_xml_subelement_attr(xml):
 
     node = bggutil.xml_subelement_attr(None, "hello")
@@ -169,3 +168,10 @@ def test_rate_limiting_for_requests():
         bgg.game(game_id=g)
 
     assert 0 < time.time() - end_time < 2
+
+def test_html_unescape_function():
+    escaped = "&lt;tag&gt;"
+
+    unescaped = bggutil.html_unescape(escaped)
+
+    assert unescaped == "<tag>"

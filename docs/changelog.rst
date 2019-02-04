@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+1.0.1
+-----
+
+* Fix: Parameter `versions` should be `version` when retrieving the collection data
+* Some code cleanup
+
+
 1.0.0
 -----
 

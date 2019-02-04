@@ -69,7 +69,8 @@ def null_logger():
     logger.setLevel(logging.ERROR)
     return logger
 
-class MockResponse():
+
+class MockResponse:
     """
     A simple object which contains all the fields we need from a response
 
@@ -79,6 +80,7 @@ class MockResponse():
         self.headers = {"content-type": "text/xml"}
         self.status_code = 200
         self.text = text
+
 
 def simulate_bgg(url, params, timeout):
     last_slash = url.rindex('/')
