@@ -571,7 +571,7 @@ class BGGCommon(object):
         if ids is not None:
             params["id"] = ",".join(["{}".format(id_) for id_ in ids])
 
-        for param in ["version", "versions", "own", "rated", "played", "trade", "want", "wishlist", "preordered"]:
+        for param in ["versions", "version", "own", "rated", "played", "trade", "want", "wishlist", "preordered"]:
             p = locals()[param]
             if p is not None:
                 if param == "versions":
