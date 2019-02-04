@@ -573,6 +573,7 @@ class BGGCommon(object):
         for param in ["versions", "own", "rated", "played", "trade", "want", "wishlist", "preordered"]:
             p = locals()[param]
             if p is not None:
+                if param=='versions': param='version'
                 params[param] = int(p)
 
         if commented is not None:
