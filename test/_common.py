@@ -30,6 +30,10 @@ TEST_GAME_ID_2 = 283
 TEST_GUILD_ID = 1229
 TEST_GUILD_ID_2 = 930
 
+TEST_GAME_WITH_IMPLEMENTATIONS_ID = 28720 # Brass
+
+TEST_GAME_EXPANSION_ID = 223555 # Scythe: The Wind Gambit
+
 TEST_GAME_ACCESSORY_ID = 104163 # Descent: Journeys in the Dark (second edition) – Conversion Kit
 
 if sys.version_info >= (3,):
