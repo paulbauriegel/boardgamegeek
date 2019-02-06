@@ -29,7 +29,7 @@ def test_get_valid_id_geeklist(legacy_bgg, mocker, null_logger):
     geeklist = legacy_bgg.geeklist(TEST_GEEKLIST_ID, comments=True)
 
     assert geeklist is not None
-    assert geeklist.id == int(TEST_GEEKLIST_ID)
+    assert geeklist.id == TEST_GEEKLIST_ID
     assert type(len(geeklist)) == int
     assert type(geeklist.items) == list
 

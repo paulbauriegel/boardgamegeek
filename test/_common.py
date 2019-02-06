@@ -33,8 +33,8 @@ TEST_GUILD_ID_2 = 930
 
 TEST_GAME_ACCESSORY_ID = 104163 # Descent: Journeys in the Dark (second edition) – Conversion Kit
 
-TEST_GEEKLIST_ID = '1'
-TEST_GEEKLIST_INVALID_ID = 'abc'
+TEST_GEEKLIST_ID = 1
+TEST_GEEKLIST_INVALID_ID = -1
 
 if sys.version_info >= (3,):
     STR_TYPES_OR_NONE = [str, type(None)]

@@ -55,7 +55,7 @@ def main():
     p.add_argument("-H", "--hot-items", help="List all hot items by type", choices=HOT_ITEM_CHOICES)
     p.add_argument("-S", "--search", help="search and return results")
 
-    p.add_argument("-l", "--geeklist", help="get geeklist by id")
+    p.add_argument("-l", "--geeklist", type=int, help="get geeklist by id")
     p.add_argument("--nocomments", help="disable getting the comments with geeklist", action="store_true")
 
     p.add_argument("--debug", action="store_true")
