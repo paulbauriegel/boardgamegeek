@@ -56,7 +56,7 @@ def main():
     p.add_argument("-S", "--search", help="search and return results")
 
     p.add_argument("-l", "--geeklist", help="get geeklist by id")
-    p.add_argument("--comments", help="also get the comments with geeklist", action="store_true")
+    p.add_argument("--nocomments", help="disable getting the comments with geeklist", action="store_true")
 
     p.add_argument("--debug", action="store_true")
     p.add_argument("--retries", help="number of retries to perform in case of timeout or API HTTP 202 code",
@@ -152,7 +152,7 @@ def main():
     oldbgg = BGGClientLegacy(timeout=args.timeout, retries=args.retries)
 
     if args.geeklist:
-        geeklist = oldbgg.geeklist(args.geeklist, args.comments)
+        geeklist = oldbgg.geeklist(args.geeklist, comments=not args.nocomments)
         geeklist._format(log)
 
 if __name__ == "__main__":
