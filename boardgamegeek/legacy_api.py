@@ -5,7 +5,7 @@ import logging
 from .api import BGGCommon
 from .api import CacheBackendMemory
 from .api import DEFAULT_REQUESTS_PER_MINUTE
-from .api import BGGError
+from .api import BGGValueError
 from .api import request_and_parse_xml
 from .loaders import create_geeklist_from_xml, add_geeklist_items_from_xml
 
@@ -33,8 +33,9 @@ class BGGClientLegacy(BGGCommon):
 
 
     def geeklist(self, listid, comments=False):
+        # Parameter validation
         if not listid:
-            raise BGGError("List Id must be specified")
+            raise BGGValueError("List Id must be specified")
         log.debug("retrieving list {}".format(listid))
 
         params = {}
