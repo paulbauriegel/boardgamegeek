@@ -2,16 +2,50 @@ from ..utils import DictObject
 from ..exceptions import BGGError
 from .things import Thing
 
+class GeekListComment(DictObject):
+    """
+    Object containing details about a comment in a geeklist
+    """
+    def __init__(self, data):
+        super(GeekListComment, self).__init__(data)
+
+    def __repr__(self):
+        return "GeekListComment (on {} by [{}])".format(self.date, self.username)
+
+    def _format(self, log):
+        log.info("date           : {}".format(self.date))
+        log.info("  username     : {}".format(self.username))
+        log.info("  postdate     : {}".format(self.postdate))
+        log.info("  editdate     : {}".format(self.editdate))
+        log.info("  thumbs count : {}".format(self.thumbs))
+        log.info("  text         : {}".format(self.text))
+
+
 class GeekList(Thing):
     """
     Object containing information about a geeklist
     """
     def __init__(self, data):
+        self._comments = []
         self._items = []
         super(GeekList, self).__init__(data)
 
     def __repr__(self):
         return "GeekList (id: {})".format(self.id)
+
+    def add_comment(self, comment_data):
+        """
+        Add a comment to the ``GeekList``
+
+        :param dict comment_data: comment data
+        :raises: :py:class:`boardgamegeek.exceptions.BoardGameGeekError` in case of invalid data
+        """
+        try:
+            comment = GeekListComment(comment_data)
+        except KeyError:
+            raise BGGError("invalid item data")
+        self._comments.append(comment)
+        return comment
 
     def add_item(self, item_data):
         """
@@ -26,6 +60,16 @@ class GeekList(Thing):
             raise BGGError("invalid item data")
         self._items.append(item)
         return item
+
+    @property
+    def comments(self):
+        """
+        Returns the comments in the collection
+
+        :returns: the comments in the geeklist
+        :rtype: list of :py:class:`boardgamegeek.games.CollectionBoardGame`
+        """
+        return self._comments
 
     @property
     def items(self):
@@ -49,7 +93,10 @@ class GeekList(Thing):
         log.info("geeklist thumbs count : {}".format(self.thumbs))
         log.info("geeklist numitems     : {}".format(self.numitems))
         log.info("geeklist description  : {}".format(self.description))
-        # "comments": ...
+        log.info("comments")
+        for c in self.comments:
+            c._format(log)
+            log.info("")
         log.info("items")
         for i in self:
             i._format(log)
@@ -66,6 +113,7 @@ class GeekListItem(DictObject):
     Object containing information about a geeklist item
     """
     def __init__(self, data):
+        self._comments = []
         super(GeekListItem, self).__init__(data)
 
     def __repr__(self):
@@ -84,6 +132,30 @@ class GeekListItem(DictObject):
             raise BGGError("invalid object data")
         return self._object
 
+    def add_comment(self, comment_data):
+        """
+        Add a comment to the ``GeekList``
+
+        :param dict comment_data: comment data
+        :raises: :py:class:`boardgamegeek.exceptions.BoardGameGeekError` in case of invalid data
+        """
+        try:
+            comment = GeekListComment(comment_data)
+        except KeyError:
+            raise BGGError("invalid item data")
+        self._comments.append(comment)
+        return comment
+
+    @property
+    def comments(self):
+        """
+        Returns the comments in the collection
+
+        :returns: the comments in the geeklist
+        :rtype: list of :py:class:`boardgamegeek.games.CollectionBoardGame`
+        """
+        return self._comments
+
     def _format(self, log):
         log.info("id                 : {}".format(self.id))
         log.info("username           : {}".format(self.username))
@@ -93,7 +165,10 @@ class GeekListItem(DictObject):
         log.info("edited at          : {}".format(self.editdate))
         log.info("thumbs count       : {}".format(self.thumbs))
         log.info("body (description) : {}".format(self.body))
-        # "comments": ...
+        log.info("comments")
+        for c in self.comments:
+            c._format(log)
+            log.info("")
 
     @property
     def object(self):

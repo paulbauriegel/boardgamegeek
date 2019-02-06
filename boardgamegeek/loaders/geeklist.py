@@ -8,6 +8,23 @@ def parse_date(str_date):
     # example: Sat, 02 Feb 2019 15:13:54 +0000
 
 
+def add_geeklist_comments_from_xml(geeklist_or_item, xml_root):
+    added_comments = False
+    for comment in xml_root.findall("comment"):
+        # initial data for this collection item
+        data = {
+            "username": comment.attrib["username"],
+            "date": parse_date(comment.attrib["date"]) or None,
+            "postdate": parse_date(comment.attrib["postdate"]) or None,
+            "editdate": parse_date(comment.attrib["editdate"]) or None,
+            "thumbs": int(comment.attrib["thumbs"]),
+            "text": comment.text.strip()
+        }
+        listcomment = geeklist_or_item.add_comment(data)
+        added_comments = True
+    return added_comments
+
+
 def create_geeklist_from_xml(xml_root, listid):
     data = {
         'id': listid,
@@ -18,9 +35,10 @@ def create_geeklist_from_xml(xml_root, listid):
         'numitems': xml_subelement_text(xml_root, 'numitems', int),
         'username': xml_subelement_text(xml_root, 'username'),
         'description': xml_subelement_text(xml_root, 'description')
-        # "comments": ...
     }
-    return GeekList(data)
+    list = GeekList(data)
+    add_geeklist_comments_from_xml(list, xml_root)
+    return list
 
 def add_geeklist_items_from_xml(geeklist, xml_root):
     added_items = False
@@ -33,7 +51,6 @@ def add_geeklist_items_from_xml(geeklist, xml_root):
             "editdate": parse_date(item.attrib["editdate"]) or None,
             "thumbs": int(item.attrib["thumbs"]),
             "body": xml_subelement_text(item, "body")
-            # "comments": ...
         }
         listitem = geeklist.add_item(data)
         object_data = {
@@ -44,5 +61,6 @@ def add_geeklist_items_from_xml(geeklist, xml_root):
             "subtype": item.attrib["subtype"]
         }
         listitem.set_object(object_data)
+        add_geeklist_comments_from_xml(listitem, xml_root)
         added_items = True
     return added_items
