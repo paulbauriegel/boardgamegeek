@@ -3,6 +3,7 @@ import datetime
 from ..utils import xml_subelement_text
 from ..objects.geeklist import GeekList
 
+
 def parse_date(str_date):
     return datetime.datetime.strptime(str_date, '%a, %d %b %Y %H:%M:%S %z')
     # example: Sat, 02 Feb 2019 15:13:54 +0000
@@ -39,6 +40,7 @@ def create_geeklist_from_xml(xml_root, listid):
     list = GeekList(data)
     add_geeklist_comments_from_xml(list, xml_root)
     return list
+
 
 def add_geeklist_items_from_xml(geeklist, xml_root):
     added_items = False
