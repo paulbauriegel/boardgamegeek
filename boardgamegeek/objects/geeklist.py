@@ -33,6 +33,9 @@ class GeekList(Thing):
     def __repr__(self):
         return "GeekList (id: {})".format(self.id)
 
+    def __len__(self):
+        return len(self._items)
+
     def add_comment(self, comment_data):
         """
         Add a comment to the ``GeekList``
