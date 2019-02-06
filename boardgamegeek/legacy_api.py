@@ -35,13 +35,10 @@ class BGGClientLegacy(BGGCommon):
     def geeklist(self, listid, comments=False):
         if not listid:
             raise BGGError("List Id must be specified")
-
         log.debug("retrieving list {}".format(listid))
 
         params = {}
-
         if comments: params['comments']= 1
-
         url = "%s/%s" % (self._geeklist_api_url, listid)
         xml_root = request_and_parse_xml(self.requests_session,
                                          url,
