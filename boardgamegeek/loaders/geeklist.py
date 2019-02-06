@@ -25,7 +25,7 @@ def create_geeklist_from_xml(xml_root, listid):
 def add_geeklist_items_from_xml(geeklist, xml_root):
     added_items = False
     for item in xml_root.findall("item"):
-        # initial data for this collection item
+        # initial data for this geeklist item
         data = {
             "id": item.attrib["id"],
             "username": item.attrib["username"],

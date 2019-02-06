@@ -30,9 +30,9 @@ class GeekList(Thing):
     @property
     def items(self):
         """
-        Returns the items in the collection
+        Returns the items in the geeklist
 
-        :returns: the items in the collection
+        :returns: the items in the geeklist
         :rtype: list of :py:class:`boardgamegeek.games.CollectionBoardGame`
         """
         return self._items
