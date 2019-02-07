@@ -79,6 +79,9 @@ def check_game(game):
 
     assert game.users_owned == 62141
     assert game.users_trading == 1121
+    assert game.users_wanting == 1120
+    assert game.users_wishing == 8407
+    assert game.users_commented == 11034
 
     assert len(game.expansions) == 23
     assert 43018 in [g.id for g in game.expansions]
