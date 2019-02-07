@@ -123,10 +123,10 @@ def simulate_legacy_bgg(url, params, timeout):
         response_text = xmlfile.read()
 
     status_filename = os.path.join(STATUS_PATH, fragment)
-    try:
+    if os.path.isfile(status_filename):
         with io.open(status_filename, "r", encoding="utf-8") as statusfile:
             response_status = int(statusfile.read())
-    except FileNotFoundError:
+    else:
         response_status = 200
 
     return MockResponse(response_text, response_status)
