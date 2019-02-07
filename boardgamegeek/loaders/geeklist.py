@@ -5,7 +5,7 @@ from ..objects.geeklist import GeekList
 
 
 def parse_date(str_date):
-    return datetime.datetime.strptime(str_date, '%a, %d %b %Y %H:%M:%S %z')
+    return datetime.datetime.strptime(str_date[:-6], '%a, %d %b %Y %H:%M:%S')  # Ignoring the timezone specifier. TODO: This is only valid as long as dates are provided in UTC time zones?
     # example: Sat, 02 Feb 2019 15:13:54 +0000
 
 
