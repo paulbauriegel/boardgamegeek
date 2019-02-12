@@ -28,14 +28,14 @@ def add_geeklist_comments_from_xml(geeklist_or_item, xml_root):
 
 def create_geeklist_from_xml(xml_root, listid):
     data = {
-        'id': listid,
-        'name': xml_subelement_text(xml_root, 'title'),  # need a name for a thing!
-        'postdate': xml_subelement_text(xml_root, 'postdate', parse_date, quiet=True),
-        'editdate': xml_subelement_text(xml_root, 'editdate', parse_date, quiet=True),
-        'thumbs': xml_subelement_text(xml_root, 'thumbs', int),
-        'numitems': xml_subelement_text(xml_root, 'numitems', int),
-        'username': xml_subelement_text(xml_root, 'username'),
-        'description': xml_subelement_text(xml_root, 'description')
+        "id": listid,
+        "name": xml_subelement_text(xml_root, 'title'),  # need a name for a thing!
+        "postdate": xml_subelement_text(xml_root, 'postdate', parse_date, quiet=True),
+        "editdate": xml_subelement_text(xml_root, 'editdate', parse_date, quiet=True),
+        "thumbs": xml_subelement_text(xml_root, 'thumbs', int),
+        "numitems": xml_subelement_text(xml_root, 'numitems', int),
+        "username": xml_subelement_text(xml_root, 'username'),
+        "description": xml_subelement_text(xml_root, 'description')
     }
     list = GeekList(data)
     add_geeklist_comments_from_xml(list, xml_root)

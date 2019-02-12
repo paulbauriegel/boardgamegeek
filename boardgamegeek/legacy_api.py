@@ -39,7 +39,7 @@ class BGGClientLegacy(BGGCommon):
         log.debug("retrieving list {}".format(listid))
 
         params = {}
-        if comments: params['comments']= 1
+        if comments: params["comments"]= 1
         url = "{}/{}".format(self._geeklist_api_url, listid)
         xml_root = request_and_parse_xml(self.requests_session,
                                          url,
