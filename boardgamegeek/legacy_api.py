@@ -40,7 +40,7 @@ class BGGClientLegacy(BGGCommon):
 
         params = {}
         if comments: params['comments']= 1
-        url = "%s/%s" % (self._geeklist_api_url, listid)
+        url = "{}/{}".format(self._geeklist_api_url, listid)
         xml_root = request_and_parse_xml(self.requests_session,
                                          url,
                                          params=params,
