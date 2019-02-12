@@ -16,7 +16,7 @@ from .version import __version__
 __all__ = ["BGGClient", "BGGChoose", "BGGRestrictSearchResultsTo", "BGGRestrictPlaysTo", "BGGRestrictDomainTo",
            "BGGRestrictCollectionTo", "BGGError", "BGGValueError", "BGGApiRetryError", "BGGApiError",
            "BGGApiTimeoutError", "BGGItemNotFoundError", "CacheBackendNone", "CacheBackendSqlite", "CacheBackendMemory"]
-__all__.append(["BGGClientLegacy"])
+__all__.extend(["BGGClientLegacy"])
 
 __import__('pkg_resources').declare_namespace(__name__)
 
